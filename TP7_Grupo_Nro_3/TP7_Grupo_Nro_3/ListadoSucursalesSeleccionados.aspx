@@ -39,11 +39,11 @@
                 <tr>
                     <td class="auto-style4">&nbsp;</td>
                     <td class="auto-style13">
-                        <asp:HyperLink ID="hlbtnListadoSucursalesSelec" runat="server">Listado de sucursales</asp:HyperLink>
+                        <asp:HyperLink ID="hlbtnListadoSucursalesSelec" runat="server" NavigateUrl="~/SeleccionarSucursales.aspx">Listado de sucursales</asp:HyperLink>
                     </td>
 
                     <td class="auto-style6">
-                        <asp:HyperLink ID="hlbtnSucursalesSelec" runat="server">Mostrar sucursales seleccionadas</asp:HyperLink>
+                        <asp:HyperLink ID="hlbtnSucursalesSelec" runat="server" NavigateUrl="~/ListadoSucursalesSeleccionados.aspx">Mostrar sucursales seleccionadas</asp:HyperLink>
                     </td>
                     <td>&nbsp;</td>
                 </tr>

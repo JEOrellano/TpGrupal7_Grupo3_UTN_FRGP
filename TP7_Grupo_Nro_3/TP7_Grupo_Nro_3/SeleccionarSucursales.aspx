@@ -38,11 +38,11 @@
                 <tr>
                     <td class="auto-style4">&nbsp;</td>
                     <td class="auto-style6">
-                        <asp:HyperLink ID="hlbtnListadoSucursales" runat="server">Listado de sucursales</asp:HyperLink>
+                        <asp:HyperLink ID="hlbtnListadoSucursales" runat="server" NavigateUrl="~/SeleccionarSucursales.aspx">Listado de sucursales</asp:HyperLink>
                     </td>
                     <td class="auto-style7">&nbsp;</td>
                     <td class="auto-style5">
-                        <asp:HyperLink ID="hlbtnSucursalSelec" runat="server">Mostrar sucursales seleccionadas</asp:HyperLink>
+                        <asp:HyperLink ID="hlbtnSucursalSelec" runat="server" NavigateUrl="~/ListadoSucursalesSeleccionados.aspx">Mostrar sucursales seleccionadas</asp:HyperLink>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -68,27 +68,20 @@
                         <asp:TextBox ID="txtNombreSucursal" runat="server" Width="188px"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" />
+                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style8">
-                        <asp:DataList ID="dlProvincias" runat="server">
+                        <asp:DataList ID="dlProvincias" runat="server" DataKeyField="Id_Provincia">
+                            <ItemTemplate>
+                                <asp:Button ID="btnProvincia" runat="server" CommandArgument='<%# Eval("Id_Provincia") %>' CommandName="EventoProvincia" OnCommand="btnProvincia_Command" Text='<%# Eval("DescripcionProvincia") %>' />
+                                <br />
+                            </ItemTemplate>
                         </asp:DataList>
                     </td>
                     <td class="auto-style12" colspan="4">
-                        <asp:ListView ID="lvSucursales" runat="server" DataKeyNames="Id_Sucursal" DataSourceID="SqlDataSource1" GroupItemCount="3">
-                            <%--<AlternatingItemTemplate>
-                                <td runat="server" style="background-color: #FFFFFF;color: #284775;">Id_Sucursal:
-                                    <asp:Label ID="Id_SucursalLabel" runat="server" Text='<%# Eval("Id_Sucursal") %>' />
-                                    <br />NombreSucursal:
-                                    <asp:Label ID="NombreSucursalLabel" runat="server" Text='<%# Eval("NombreSucursal") %>' />
-                                    <br />DescripcionSucursal:
-                                    <asp:Label ID="DescripcionSucursalLabel" runat="server" Text='<%# Eval("DescripcionSucursal") %>' />
-                                    <br />URL_Imagen_Sucursal:
-                                    <asp:Label ID="URL_Imagen_SucursalLabel" runat="server" Text='<%# Eval("URL_Imagen_Sucursal") %>' />
-                                    <br /></td>
-                            </AlternatingItemTemplate>--%>
+                        <asp:ListView ID="lvSucursales" runat="server" DataKeyNames="Id_Sucursal" GroupItemCount="3">                            
                             <EditItemTemplate>
                                 <td runat="server" style="background-color: #999999;">Id_Sucursal:
                                     <asp:Label ID="Id_SucursalLabel1" runat="server" Text='<%# Eval("Id_Sucursal") %>' />
@@ -112,7 +105,7 @@
                                 </table>
                             </EmptyDataTemplate>
                             <EmptyItemTemplate>
-<td runat="server" />
+                                <td runat="server" />
                             </EmptyItemTemplate>
                             <GroupTemplate>
                                 <tr id="itemPlaceholderContainer" runat="server">
@@ -140,7 +133,7 @@
                                     <br />
                                     <asp:Label ID="DescripcionSucursalLabel" runat="server" Text='<%# Eval("DescripcionSucursal") %>' />
                                     <br />
-                                    <asp:Button ID="btnSeleccionar" runat="server" Text="Seleccionar" />
+                                    <asp:Button ID="btnSeleccionar" runat="server" Text="Seleccionar" CommandArgument='<%# Eval("Id_Sucursal") + "-" + Eval("NombreSucursal") + "-" + Eval("DescripcionSucursal") %>' CommandName="eventoSeleccionar" OnCommand="btnSeleccionar_Command" />
                                     <br /></td>
                             </ItemTemplate>
                             <LayoutTemplate>
@@ -179,7 +172,6 @@
                             </SelectedItemTemplate>
                         </asp:ListView>
                         <br />
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BDSucursalesConnectionString %>" SelectCommand="SELECT [Id_Sucursal], [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal] FROM [Sucursal]"></asp:SqlDataSource>
                         <br />
                     </td>
                 </tr>
